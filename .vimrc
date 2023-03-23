@@ -27,17 +27,17 @@
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+" Turn syntax highlighting on.
+syntax on
+
 " Colorscheme 
-colo molokai
+colo molokai 
 
 " Set clear background
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 " Set cursor to skinny
 set guicursor=i:ver25-iCursor
-
-" Turn syntax highlighting on.
-syntax on
 
 " Add numbers to the file.
 set number
@@ -140,6 +140,17 @@ call plug#begin('~/.vim/plugged')
     let g:python_highlight_all = 1
 
   Plug 'mechatroner/rainbow_csv'
+
+  Plug 'jpalardy/vim-slime'
+    let g:slime_target = 'tmux'
+    let g:slime_paste_file = expand("$HOME/.slime_paste")
+
+  
+  " this is for fzf
+  set rtp+=/opt/homebrew/opt/fzf
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+
 
 call plug#end()
 
@@ -272,15 +283,5 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 " }}}
-
-
-
-
-
-
-
-
-
-
 
 
