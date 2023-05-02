@@ -8,10 +8,6 @@
 "                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 "               
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""               
-" Lots of this .vimrc was sourced from freecodecamp but it has been more than
-" heavily modified to fit my needs
-" https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
-
 
 " Use a line cursor within insert mode and a block cursor everywhere else.
 "
@@ -31,7 +27,13 @@ let &t_EI = "\e[2 q"
 syntax on
 
 " Colorscheme 
-colo molokai 
+" colo molokai 
+
+" colo catppuccin_frappe
+" colo catppuccin_latte
+" colo catppuccin_macchiato
+colo catppuccin_mocha
+set termguicolors
 
 " Set clear background
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
@@ -101,28 +103,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
   
   Plug 'vim-airline/vim-airline'
-    if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-    endif
-    
-  " powerline symbols
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.colnr = ' ℅:'
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ' :'
-  let g:airline_symbols.maxlinenr = '☰ '
-  let g:airline_symbols.dirty='⚡'
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#whitespace#enabled = 0
-  "git integration...
-  let g:airline#extensions#branch#enabled = 1
-  let g:airline#extensions#fugitiveline#enabled = 1
-  let g:airline_powerline_fonts = 1
-
 
   Plug 'preservim/nerdtree'
 	
@@ -130,14 +110,12 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'airblade/vim-gitgutter'    
 
-"  Plug 'vim-python/python-syntax'
-
   Plug 'sheerun/vim-polyglot'
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   Plug 'vim-python/python-syntax'
-    let g:python_highlight_all = 1
+  	let g:python_highlight_all = 1
 
   Plug 'mechatroner/rainbow_csv'
 
@@ -145,12 +123,17 @@ call plug#begin('~/.vim/plugged')
     let g:slime_target = 'tmux'
     let g:slime_paste_file = expand("$HOME/.slime_paste")
 
-  
-  " this is for fzf
-  set rtp+=/opt/homebrew/opt/fzf
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-commentary'
+  autocmd FileType apache setlocal commentstring=#\ %s 
 
+  Plug 'tmhedberg/SimpylFold'
+
+  " this is for fzf
+  " set rtp+=/opt/homebrew/opt/fzf
+  " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  " Plug 'junegunn/fzf.vim'
+
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 call plug#end()
 
@@ -175,6 +158,10 @@ nnoremap N Nzz
 
 " Yank from cursor to the end of line.
 nnoremap Y y$
+
+" switch between tabs wicked fast lol
+nnoremap H gT
+nnoremap L gt
 
 " Map the F5 key to run a Python script inside Vim.
 " We map F5 to a chain of commands here.
@@ -201,6 +188,9 @@ noremap <c-right> <c-w><
 " NERDTree specific mappings.
 " Map the F3 key to toggle NERDTree open and close.
 nnoremap <F3> :NERDTreeToggle<cr>
+
+" Paste toggling is super annoying so just bind it to f9
+set pastetoggle=<F9>
 
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
@@ -238,20 +228,31 @@ augroup END
 
 " STATUS LINE ------------------------------------------------------------ {{{
 
-" Clear status line when vimrc is reloaded.
-"set statusline=
+    if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+    endif
+    
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.colnr = ' ℅:'
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ' :'
+  let g:airline_symbols.maxlinenr = '☰ '
+  let g:airline_symbols.dirty='⚡'
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#whitespace#enabled = 0
+  "git integration...
+  let g:airline#extensions#branch#enabled = 1
+  let g:airline#extensions#fugitiveline#enabled = 1
+  let g:airline_powerline_fonts = 1
 
-" Status line left side.
-"set statusline+=\ %F\ %M\ %Y\ %R
 
-" Use a divider to separate the left side from the right side.
-"set statusline+=%=
 
-" Status line right side.
-"set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
-
-" Show the status on the second to last line.
-"set laststatus=2
+set laststatus=2
 
 " }}}
 

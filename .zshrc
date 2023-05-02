@@ -8,6 +8,7 @@ alias sl='ls'
 alias "c=xclip -i"
 alias "v=xclip -o"
 
+source ~/zsh-quotify/quotify.plugin.zsh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -27,6 +28,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
+# typeset -gA ZSH_HIGHLIGHT_STYLES
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -118,7 +122,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias -g micro="~/./micro "
-alias research="cd"
+alias research="cd /Users/jakefettig/Documents/WWUCS/research/"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -137,3 +141,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
