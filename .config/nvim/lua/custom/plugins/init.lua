@@ -98,13 +98,21 @@ map('n', '<leader>li', '<cmd>LeetCodeSignIn<cr>', {desc = 'Sign into LeetCode'})
  -- Calendar
 map('n', '<leader>c', '<cmd>Calendar<cr>', {desc = 'Open up the calendar'})
 
+
+-- Float Term
+map('n', '<C-h>', '<cmd>FloatermToggle<cr>', {desc = 'Toggle the current floaterm'})
+map('t', '<C-h>', '<cmd>FloatermToggle<cr>', {desc = 'Toggle the current floaterm'})
+
 return {
+  "alec-gibson/nvim-tetris",
+  "imsnif/kdl.vim",
   "xiyaowong/transparent.nvim",
   "MunifTanjim/nui.nvim",
   "nvim-neo-tree/neo-tree.nvim",
   "github/copilot.vim",
   "dhruvasagar/vim-table-mode",
   "itchyny/calendar.vim",
+  "voldikss/vim-floaterm",
   version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
