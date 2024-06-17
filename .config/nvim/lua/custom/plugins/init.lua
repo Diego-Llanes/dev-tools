@@ -3,6 +3,8 @@
 --
 -- See the kickstart.nvim README for more information
 
+vim.opt.swapfile = false
+
 vim.g.leetcode_browser = 'firefox'
 vim.g.leetcode_solution_filetype = 'python3'
 
@@ -20,38 +22,55 @@ vim.opt.ignorecase = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 
--- Function to format the entire buffer
-local function format_buffer()
-    vim.api.nvim_exec([[
-        let save_cursor = getpos(".")
-        normal! ggVGgq
-        call setpos('.', save_cursor)
-    ]], false)
-end
 
--- Register the function for global use
-_G.format_buffer = format_buffer
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
--- Auto-command group for .norg files to set text width and format options
-vim.cmd [[
-augroup NorgSettings
-    autocmd!
-    autocmd BufRead,BufNewFile *.norg setlocal formatoptions+=t textwidth=80
-augroup END
-]]
+vim.g.copilot_filetypes = {
+  ["*"] = false,
+  ["javascript"] = true,
+  ["typescript"] = true,
+  ["lua"] = false,
+  ["rust"] = true,
+  ["c"] = true,
+  ["c#"] = true,
+  ["c++"] = true,
+  ["go"] = true,
+  ["python"] = true,
+  ["make"] = true,
+}
 
--- Auto-command group for .norg files to define key binding for formatting
-vim.cmd [[
-augroup NorgFormat
-    autocmd!
-    autocmd FileType norg nnoremap <buffer> <Leader>f :lua _G.format_buffer()<CR>
-augroup END
-]]
+vim.api.nvim_create_augroup('NotesSettings', { clear = true })
 
--- Define :Fmt command
-vim.cmd [[
-command! Fmt lua _G.format_buffer()
-]]
+vim.api.nvim_create_autocmd('FileType', {
+    group = 'NotesSettings',
+    pattern = {'norg', 'markdown', 'text'},
+    callback = function()
+        vim.wo.wrap = true                         -- Enable wrapping
+        vim.wo.linebreak = true                    -- Wrap lines at word boundaries
+        vim.wo.breakindent = true                  -- Indent wrapped lines
+        vim.keymap.set('n', 'j', 'gj', {})         -- Move easily through soft wraps
+        vim.keymap.set('n', 'k', 'gk', {})         -- Move easily through soft wraps
+        vim.wo.spell = true                        -- Set spell
+        vim.cmd "hi SpellBad gui=bold,undercurl guifg=LightRed"
+        vim.keymap.set('n', '<C-s>', '1z=')        -- Replace current word with first autosuggestion
+    end
+})
+
+vim.api.nvim_create_augroup('LaTeXSettings', { clear = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = 'LaTeXSettings',
+    pattern = {'tex'},
+    callback = function()
+        vim.wo.wrap = true                         -- Enable wrapping
+        vim.wo.linebreak = true                    -- Wrap lines at word boundaries
+        vim.wo.breakindent = true                  -- Indent wrapped lines
+        vim.keymap.set('n', 'j', 'gj', {})         -- Move easily through soft wraps
+        vim.keymap.set('n', 'k', 'gk', {})         -- Move easily through soft wraps
+        vim.keymap.set('c', 'W', 'w | make<Cr>',{desc = 'Run make in the shell'})
+    end
+})
 
 local function map(mode, lhs, rhs, opts)
     local options = { noremap = true, silent = true }
@@ -87,7 +106,7 @@ map('n', '<leader>nj', '<cmd>Neorg journal<cr>', {desc = 'Jump to Neorg journal'
 map('n', '<leader>nt', '<cmd>Neorg toc<cr>', {desc = 'Open Neorg Table of Contents'})
 map('n', '<leader>nr', '<cmd>Neorg return<cr>', {desc = 'Close all Neorg buffers and go back'})
 map('n', '<leader>nv', '<cmd>lua require("nabla").toggle_virt()<cr>', {desc = 'Render math lines'})
-map('n', '<C-s>', '<cmd>Telescope neorg find_linkable<cr>', {desc = 'fzf all norg files'})
+-- map('n', '<C-s>', '<cmd>Telescope neorg find_linkable<cr>', {desc = 'fzf all norg files'})
 
  -- Leetcode Stuff
 map('n', '<leader>ll', '<cmd>LeetCodeList<cr>', {desc = 'List leetcode questions'})
@@ -102,6 +121,7 @@ map('n', '<leader>c', '<cmd>Calendar<cr>', {desc = 'Open up the calendar'})
 -- Float Term
 map('n', '<C-h>', '<cmd>FloatermToggle<cr>', {desc = 'Toggle the current floaterm'})
 map('t', '<C-h>', '<cmd>FloatermToggle<cr>', {desc = 'Toggle the current floaterm'})
+
 
 return {
   "alec-gibson/nvim-tetris",
@@ -132,5 +152,48 @@ return {
       vim.fn.sign_define("DiagnosticSignHint",
         {text = "", texthl = "DiagnosticSignHint"})
   end,
-
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000, -- We'd like this plugin to load first out of the rest
+    config = true, -- This automatically runs `require("luarocks-nvim").setup()`
+  },
+  {
+    "nvim-neorg/neorg",
+    -- build = ":Neorg sync-parsers",
+    dependencies = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-neorg/neorg-telescope" },
+        { "luarocks.nvim" },
+    },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.presenter"] = {
+            config = {
+              zen_mode='zen-mode'
+            }
+          }, -- Loads default behaviour
+          ["core.integrations.telescope"] = {},
+          ["core.tempus"] = {}, -- Loads default behaviour
+          ["core.export"] = {}, -- Loads default behaviour
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.ui"] = {}, -- Loads default behaviour
+          ["core.ui.calendar"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {
+            config = {
+              icon_preset = 'diamond',
+            }
+          }, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+              default_workspace = "notes"
+            },
+          },
+        },
+      }
+    end,
+  },
 }

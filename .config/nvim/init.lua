@@ -53,41 +53,6 @@ require('lazy').setup({
     end,
     dependencies = { {'nvim-tree/nvim-web-devicons'}}
   },
-  {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" } },
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.presenter"] = {
-            config = {
-              zen_mode='zen-mode'
-            }
-          }, -- Loads default behaviour
-          ["core.integrations.telescope"] = {},
-          ["core.tempus"] = {}, -- Loads default behaviour
-          ["core.export"] = {}, -- Loads default behaviour
-          ["core.defaults"] = {}, -- Loads default behaviour
-          ["core.ui"] = {}, -- Loads default behaviour
-          ["core.ui.calendar"] = {}, -- Loads default behaviour
-          ["core.concealer"] = {
-            config = {
-              icon_preset = 'diamond',
-            }
-          }, -- Adds pretty icons to your documents
-          ["core.dirman"] = { -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-              default_workspace = "notes"
-            },
-          },
-        },
-      }
-    end,
-  },
 
   {'romgrk/barbar.nvim',
     dependencies = {
@@ -101,7 +66,7 @@ require('lazy').setup({
       -- insert_at_start = true,
       -- …etc.
     },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    -- version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
 
   -- Git related plugins
@@ -915,6 +880,10 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+
+  ltex = {
+      filetypes = { 'txt', 'md', 'norg' }
+  },
 
   lua_ls = {
     Lua = {
