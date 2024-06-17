@@ -1,7 +1,6 @@
 export PAGER="less" 
 export EDITOR="nvim"
 export PATH=/usr/local/bin:$PATH
-export PATH="$PATH:/Users/jakefettig/Documents/personal_cs/homeless_app/flutter/bin:/Users/jakefettig/.cargo/bin:/Users/jakefettig/.local/bin"
 
 export CC=/opt/homebrew/bin/gcc-12
 export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"
@@ -9,11 +8,8 @@ export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
 # source /usr/share/fzf/key-bindings.zsh
 # source /usr/share/fzf/completion.zsh
 
-source ~/.SECRETS
-
 export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
 
-alias wwu='cd /Users/jakefettig/Documents/WWUCS/'
 alias vom='vim'
 alias got='git'
 alias sl='ls'
@@ -28,7 +24,6 @@ from tabulate import tabulate;"
 alias firefox='open -a Firefox'
 alias htop="bpytop"
 alias lg="lazygit"
-alias wwuvpn='openconnect-sso --server remotevpn.wwu.edu/fullmfa --user fettigj@wwu.edu'
 alias n="nvim"
 alias rsync="rsync -P"
 
