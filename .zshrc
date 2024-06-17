@@ -1,14 +1,50 @@
+export PAGER="less" 
+export EDITOR="nvim"
 export PATH=/usr/local/bin:$PATH
+export PATH="$PATH:/Users/jakefettig/Documents/personal_cs/homeless_app/flutter/bin:/Users/jakefettig/.cargo/bin:/Users/jakefettig/.local/bin"
+
+export CC=/opt/homebrew/bin/gcc-12
+export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
+# source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
+
+source ~/.SECRETS
+
+export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
 
 alias wwu='cd /Users/jakefettig/Documents/WWUCS/'
 alias vom='vim'
 alias got='git'
 alias sl='ls'
+alias c='clear'
+alias ca='conda activate'
+alias pythin='ipython -i -c "import numpy as np;
+import torch;
+import matplotlib.pyplot as plt;
+import pandas as pd;
+from tabulate import tabulate;"
+'
+alias firefox='open -a Firefox'
+alias htop="bpytop"
+alias lg="lazygit"
+alias wwuvpn='openconnect-sso --server remotevpn.wwu.edu/fullmfa --user fettigj@wwu.edu'
+alias n="nvim"
+alias rsync="rsync -P"
 
-alias "c=xclip -i"
-alias "v=xclip -o"
+# Apple Script
+alias nextsong='osascript -e "tell application \"Music\" to next track"'
+alias prevsong='osascript -e "tell application \"Music\" to previous track"'
+alias lovesong='osascript -e "tell application \"Music\" to set loved of current track to true"'
 
-source ~/zsh-quotify/quotify.plugin.zsh
+
+# Key Bindings
+bindkey '^S' beginning-of-line
+bindkey '^f' forward-word
+bindkey '^b' backward-word
+
+# Disabled because it is "inapropriate"
+# source ~/zsh-quotify/quotify.plugin.zsh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -63,7 +99,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -121,7 +157,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias -g micro="~/./micro "
+alias -g micro="~/micro "
 alias research="cd /Users/jakefettig/Documents/WWUCS/research/"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -139,6 +175,9 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Created by `pipx` on 2023-08-16 23:19:22
+export PATH="$PATH:/Users/jakefettig/.local/bin"
