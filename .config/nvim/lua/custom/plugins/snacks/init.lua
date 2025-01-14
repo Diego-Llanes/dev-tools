@@ -192,4 +192,5 @@ return {
       end,
     })
   end,
+  enabled = true,
 }

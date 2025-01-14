@@ -9,6 +9,7 @@ local config = {
   'xiyaowong/transparent.nvim',
   'nvim-neo-tree/neo-tree.nvim',
   'norcalli/nvim-colorizer.lua',
+  'rcarriga/nvim-notify',
 }
 
 local custom_plugins = {
@@ -19,7 +20,8 @@ local custom_plugins = {
   require 'custom.plugins.neorg',
   require 'custom.plugins.typst-preview',
   require 'custom.plugins.neoscroll',
-  require 'custom.plugins.snacks',
+  -- require 'custom.plugins.snacks',
+  require 'custom.plugins.kitty',
 }
 
 for _, plugins in ipairs(custom_plugins) do

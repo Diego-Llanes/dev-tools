@@ -36,6 +36,16 @@ return {
             {
               icon = '  ',
               -- icon_hl = 'Title',
+              desc = 'Search Old Files',
+              -- desc_hl = 'String',
+              key = 'o',
+              -- keymap = 'SPC f d',
+              -- key_format = ' %s', -- remove default surrounding `[]`
+              action = 'lua require"telescope.builtin".oldfiles(require("telescope.themes").get_dropdown({}))',
+            },
+            {
+              icon = '  ',
+              -- icon_hl = 'Title',
               desc = 'Find Git Commits',
               -- desc_hl = 'String',
               key = 'c',
