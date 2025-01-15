@@ -23,8 +23,9 @@ map('n', '<C-p>', '<Cmd>BufferPick<CR>')
 map('n', 'j', 'gj')
 map('n', 'j', 'gj')
 
--- Neotree Stuff
-map('n', '<leader>t', ':Neotree toggle<CR>', { desc = 'Open Neotree' })
+-- Tree Stuff
+map('n', '<leader>t', ':lua MiniFiles.open()<CR>', { desc = 'Open mini.files' })
+map('n', '<leader>T', ':Neotree toggle<CR>', { desc = 'Open Neotree' })
 
 -- Neorg Stuff
 map('n', '<leader>ni', '<cmd>Neorg index<cr>', { desc = 'Jump to Neorg index' })
@@ -32,12 +33,6 @@ map('n', '<leader>nj', '<cmd>Neorg journal<cr>', { desc = 'Jump to Neorg journal
 map('n', '<leader>nt', '<cmd>Neorg toc<cr>', { desc = 'Open Neorg Table of Contents' })
 map('n', '<leader>nr', '<cmd>Neorg return<cr>', { desc = 'Close all Neorg buffers and go back' })
 map('n', '<leader>nv', '<cmd>lua require("nabla").toggle_virt()<cr>', { desc = 'Render math lines' })
-
--- Leetcode Stuff
-map('n', '<leader>ll', '<cmd>LeetCodeList<cr>', { desc = 'List leetcode questions' })
-map('n', '<leader>lt', '<cmd>LeetCodeTest<cr>', { desc = 'Test your leetcode question' })
-map('n', '<leader>ls', '<cmd>LeetCodeSubmit<cr>', { desc = 'Submit your leetcode solution' })
-map('n', '<leader>li', '<cmd>LeetCodeSignIn<cr>', { desc = 'Sign into LeetCode' })
 
 -- Aerial
 map('n', '<leader>a', '<cmd>AerialToggle<CR>', { desc = 'Open Aerial' })
